@@ -37,27 +37,23 @@
                     <h4 class="text-lg font-semibold mb-4">Enlaces Rápidos</h4>
                     <ul class="space-y-2 text-sm">
                         <li>
-                            <a href="<?= BASE_URL ?>/index.php" class="text-gray-400 hover:text-white flex items-center">
-                                <i class="fas fa-chevron-right text-xs mr-2"></i>
-                                Inicio
+                            <a href="<?= BASE_URL ?>/index.php" class="text-gray-400 hover:text-white flex items-center transition-colors">
+                                <i class="fas fa-chevron-right text-xs mr-2"></i>Inicio
                             </a>
                         </li>
                         <li>
-                            <a href="<?= BASE_URL ?>/index.php?module=public&action=catalogo" class="text-gray-400 hover:text-white flex items-center">
-                                <i class="fas fa-chevron-right text-xs mr-2"></i>
-                                Catálogo
+                            <a href="<?= BASE_URL ?>/index.php?module=publico&action=catalogo" class="text-gray-400 hover:text-white flex items-center transition-colors">
+                                <i class="fas fa-chevron-right text-xs mr-2"></i>Catálogo
                             </a>
                         </li>
                         <li>
-                            <a href="<?= BASE_URL ?>/index.php?module=public&action=sobre-nosotros" class="text-gray-400 hover:text-white flex items-center">
-                                <i class="fas fa-chevron-right text-xs mr-2"></i>
-                                Sobre Nosotros
+                            <a href="#" class="text-gray-400 hover:text-white flex items-center transition-colors">
+                                <i class="fas fa-chevron-right text-xs mr-2"></i>Sobre Nosotros
                             </a>
                         </li>
                         <li>
-                            <a href="<?= BASE_URL ?>/index.php?module=public&action=contacto" class="text-gray-400 hover:text-white flex items-center">
-                                <i class="fas fa-chevron-right text-xs mr-2"></i>
-                                Contacto
+                            <a href="#contacto" class="text-gray-400 hover:text-white flex items-center transition-colors">
+                                <i class="fas fa-chevron-right text-xs mr-2"></i>Contacto
                             </a>
                         </li>
                     </ul>
@@ -67,35 +63,23 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Categorías</h4>
                     <ul class="space-y-2 text-sm">
+                        <?php 
+                        try {
+                            $db = Database::getInstance();
+                            $cats = $db->fetchAll("SELECT id, nombre FROM categorias WHERE estado = 1 ORDER BY nombre LIMIT 5");
+                            foreach ($cats as $cat): 
+                        ?>
                         <li>
-                            <a href="<?= BASE_URL ?>/index.php?module=public&action=catalogo&categoria=motor" class="text-gray-400 hover:text-white flex items-center">
-                                <i class="fas fa-cog text-xs mr-2"></i>
-                                Motor
+                            <a href="<?= BASE_URL ?>/index.php?module=publico&action=categoria&id=<?= $cat['id'] ?>" class="text-gray-400 hover:text-white flex items-center transition-colors">
+                                <i class="fas fa-cog text-xs mr-2"></i><?= htmlspecialchars($cat['nombre']) ?>
                             </a>
                         </li>
-                        <li>
-                            <a href="<?= BASE_URL ?>/index.php?module=public&action=catalogo&categoria=carroceria" class="text-gray-400 hover:text-white flex items-center">
-                                <i class="fas fa-car text-xs mr-2"></i>
-                                Carrocería
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= BASE_URL ?>/index.php?module=public&action=catalogo&categoria=frenos" class="text-gray-400 hover:text-white flex items-center">
-                                <i class="fas fa-circle text-xs mr-2"></i>
-                                Frenos
-                            </a>
-                        </li>
-                        <li>
-                            <a href="<?= BASE_URL ?>/index.php?module=public&action=catalogo&categoria=electrico" class="text-gray-400 hover:text-white flex items-center">
-                                <i class="fas fa-bolt text-xs mr-2"></i>
-                                Eléctrico
-                            </a>
-                        </li>
+                        <?php endforeach; } catch (Exception $e) {} ?>
                     </ul>
                 </div>
 
                 <!-- Columna 4: Contacto -->
-                <div>
+                <div id="contacto">
                     <h4 class="text-lg font-semibold mb-4">Contacto</h4>
                     <ul class="space-y-3 text-sm text-gray-400">
                         <li class="flex items-start">
@@ -104,11 +88,11 @@
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-phone mr-3 text-indigo-500"></i>
-                            <a href="tel:+50761234567" class="hover:text-white">+507 6123-4567</a>
+                            <a href="tel:+50761234567" class="hover:text-white transition-colors">+507 6123-4567</a>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-envelope mr-3 text-indigo-500"></i>
-                            <a href="mailto:info@autopartes.com" class="hover:text-white">info@autopartes.com</a>
+                            <a href="mailto:info@autopartes.com" class="hover:text-white transition-colors">info@autopartes.com</a>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-clock mt-1 mr-3 text-indigo-500"></i>
@@ -118,7 +102,7 @@
                 </div>
             </div>
 
-            <!-- Newsletter (opcional) -->
+            <!-- Newsletter -->
             <div class="mt-8 pt-8 border-t border-gray-700">
                 <div class="max-w-xl mx-auto text-center">
                     <h4 class="text-lg font-semibold mb-2">Suscríbete a nuestro Newsletter</h4>
@@ -130,10 +114,7 @@
                             class="flex-1 px-4 py-2 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-indigo-500"
                             required
                         >
-                        <button 
-                            type="submit" 
-                            class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-semibold whitespace-nowrap"
-                        >
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg font-semibold whitespace-nowrap transition-colors">
                             Suscribirse
                         </button>
                     </form>
@@ -157,16 +138,16 @@
             <div class="mt-8 pt-8 border-t border-gray-700 text-center text-sm text-gray-400">
                 <p>
                     &copy; <?= date('Y') ?> AutoPartes Pro. Todos los derechos reservados.
-                    <?php if (DEV_MODE): ?>
+                    <?php if (defined('DEV_MODE') && DEV_MODE): ?>
                         <span class="text-yellow-500 ml-2">
                             <i class="fas fa-code"></i> MODO DESARROLLO
                         </span>
                     <?php endif; ?>
                 </p>
                 <p class="mt-2">
-                    <a href="#" class="hover:text-white mx-2">Términos y Condiciones</a> | 
-                    <a href="#" class="hover:text-white mx-2">Política de Privacidad</a> | 
-                    <a href="#" class="hover:text-white mx-2">Política de Devoluciones</a>
+                    <a href="#" class="hover:text-white mx-2 transition-colors">Términos y Condiciones</a> | 
+                    <a href="#" class="hover:text-white mx-2 transition-colors">Política de Privacidad</a> | 
+                    <a href="#" class="hover:text-white mx-2 transition-colors">Política de Devoluciones</a>
                 </p>
                 <p class="mt-4 text-xs text-gray-500">
                     Desarrollado por Grupo 1SF131 - Universidad Tecnológica de Panamá
@@ -186,12 +167,7 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Scripts JS personalizados -->
-    <?php if (file_exists(ROOT_PATH . '/public/js/app.js')): ?>
-        <script src="<?= ASSETS_URL ?>/js/app.js"></script>
-    <?php endif; ?>
-
-    <!-- Scripts adicionales específicos de la página -->
+    <!-- Scripts adicionales -->
     <?php if (isset($customScripts)): ?>
         <?= $customScripts ?>
     <?php endif; ?>
