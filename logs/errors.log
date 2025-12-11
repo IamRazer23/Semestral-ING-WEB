@@ -1,0 +1,12 @@
+[2025-12-10 15:18:00] [CRITICAL] Exception: Class "Database" not found en C:\xampp\htdocs\inventario-autopartes\controllers\PublicController.php línea 17
+[2025-12-10 19:47:14] [ERROR] Error: 2 en C:\xampp\htdocs\inventario-autopartes\controllers\PublicController.php línea 44
+[2025-12-10 19:47:14] [CRITICAL] Exception: Failed opening required 'C:\xampp\htdocs\inventario-autopartes/views/public/home.php' (include_path='C:\xampp\php\PEAR') en C:\xampp\htdocs\inventario-autopartes\controllers\PublicController.php línea 44
+[2025-12-10 19:48:41] [ERROR] Error: 2 en C:\xampp\htdocs\inventario-autopartes\controllers\PublicController.php línea 44
+[2025-12-10 19:48:41] [CRITICAL] Exception: Failed opening required 'C:\xampp\htdocs\inventario-autopartes/views/public/home.php' (include_path='C:\xampp\php\PEAR') en C:\xampp\htdocs\inventario-autopartes\controllers\PublicController.php línea 44
+[2025-12-10 19:50:16] [CRITICAL] Exception: Class "Validator" not found en C:\xampp\htdocs\inventario-autopartes\models\Usuario.php línea 34
+[2025-12-10 19:52:37] [CRITICAL] Exception: Class "Database" not found en C:\xampp\htdocs\inventario-autopartes\controllers\ClienteController.php línea 29
+[2025-12-10 19:54:33] [ERROR] Error: 2 en C:\xampp\htdocs\inventario-autopartes\controllers\ClienteController.php línea 77
+[2025-12-10 19:54:33] [CRITICAL] Exception: Failed opening required 'C:\xampp\htdocs\inventario-autopartes/views/cliente/dashboard.php' (include_path='C:\xampp\php\PEAR') en C:\xampp\htdocs\inventario-autopartes\controllers\ClienteController.php línea 77
+[2025-12-10 19:57:43] [ERROR] Error: 2 en C:\xampp\htdocs\inventario-autopartes\controllers\PublicController.php línea 119
+[2025-12-10 19:57:43] [ERROR] Error: 2 en C:\xampp\htdocs\inventario-autopartes\controllers\PublicController.php línea 152
+[2025-12-10 19:57:43] [CRITICAL] Exception: Failed opening required 'C:\xampp\htdocs\inventario-autopartes/views/public/catalogo.php' (include_path='C:\xampp\php\PEAR') en C:\xampp\htdocs\inventario-autopartes\controllers\PublicController.php línea 152

@@ -1,0 +1,112 @@
+<!-- Menú Horizontal Cliente -->
+<nav class="bg-gradient-to-r from-green-700 to-green-600 border-b border-green-800 shadow-lg">
+    <div class="container mx-auto px-4">
+        <ul class="flex items-center space-x-1 overflow-x-auto scrollbar-hide py-1">
+            
+            <!-- Dashboard -->
+            <li>
+                <a href="<?= BASE_URL ?>/index.php?module=cliente&action=dashboard" 
+                   class="flex items-center space-x-2 px-4 py-3 text-white hover:bg-green-800 rounded-lg transition-colors whitespace-nowrap <?= (isset($_GET['action']) && $_GET['action'] == 'dashboard') ? 'bg-green-800' : '' ?>">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span class="font-medium">Mi Panel</span>
+                </a>
+            </li>
+
+            <!-- Explorar Catálogo -->
+            <li>
+                <a href="<?= BASE_URL ?>/index.php?module=public&action=catalogo" 
+                   class="flex items-center space-x-2 px-4 py-3 text-white hover:bg-green-800 rounded-lg transition-colors whitespace-nowrap">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="font-medium">Comprar</span>
+                </a>
+            </li>
+
+            <!-- Mi Carrito -->
+            <li>
+                <a href="<?= BASE_URL ?>/index.php?module=cliente&action=carrito" 
+                   class="flex items-center space-x-2 px-4 py-3 text-white hover:bg-green-800 rounded-lg transition-colors whitespace-nowrap <?= (isset($_GET['action']) && $_GET['action'] == 'carrito') ? 'bg-green-800' : '' ?>">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="font-medium">Mi Carrito</span>
+                    <span id="menu-cart-count" class="bg-yellow-400 text-green-900 text-xs px-2 py-0.5 rounded-full font-bold">
+                        0
+                    </span>
+                </a>
+            </li>
+
+            <!-- Mis Compras -->
+            <li>
+                <a href="<?= BASE_URL ?>/index.php?module=cliente&action=mis-compras" 
+                   class="flex items-center space-x-2 px-4 py-3 text-white hover:bg-green-800 rounded-lg transition-colors whitespace-nowrap <?= (isset($_GET['action']) && $_GET['action'] == 'mis-compras') ? 'bg-green-800' : '' ?>">
+                    <i class="fas fa-history"></i>
+                    <span class="font-medium">Mis Compras</span>
+                </a>
+            </li>
+
+            <!-- Mis Comentarios -->
+            <li>
+                <a href="<?= BASE_URL ?>/index.php?module=cliente&action=mis-comentarios" 
+                   class="flex items-center space-x-2 px-4 py-3 text-white hover:bg-green-800 rounded-lg transition-colors whitespace-nowrap <?= (isset($_GET['action']) && $_GET['action'] == 'mis-comentarios') ? 'bg-green-800' : '' ?>">
+                    <i class="fas fa-comments"></i>
+                    <span class="font-medium">Mis Comentarios</span>
+                </a>
+            </li>
+
+            <!-- Favoritos (futuro) -->
+            <li>
+                <a href="<?= BASE_URL ?>/index.php?module=cliente&action=favoritos" 
+                   class="flex items-center space-x-2 px-4 py-3 text-white hover:bg-green-800 rounded-lg transition-colors whitespace-nowrap <?= (isset($_GET['action']) && $_GET['action'] == 'favoritos') ? 'bg-green-800' : '' ?>">
+                    <i class="fas fa-heart"></i>
+                    <span class="font-medium">Favoritos</span>
+                </a>
+            </li>
+
+            <!-- Ayuda -->
+            <li class="ml-auto">
+                <a href="<?= BASE_URL ?>/index.php?module=cliente&action=ayuda" 
+                   class="flex items-center space-x-2 px-4 py-3 text-white hover:bg-green-800 rounded-lg transition-colors whitespace-nowrap <?= (isset($_GET['action']) && $_GET['action'] == 'ayuda') ? 'bg-green-800' : '' ?>">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="font-medium">Ayuda</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<style>
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
+
+<script>
+    // Actualizar contador del carrito en el menú
+    function updateMenuCartCount() {
+        fetch('<?= BASE_URL ?>/index.php?module=cliente&action=cart_count', {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const badge = document.getElementById('menu-cart-count');
+                if (badge) {
+                    badge.textContent = data.count;
+                }
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+    
+    // Actualizar al cargar
+    document.addEventListener('DOMContentLoaded', updateMenuCartCount);
+    
+    // Actualizar cada 30 segundos
+    setInterval(updateMenuCartCount, 30000);
+</script>
