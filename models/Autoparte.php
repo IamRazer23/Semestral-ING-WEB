@@ -92,26 +92,29 @@ class Autoparte {
      * @return array|false
      */
     public function obtenerPorId($id) {
-        try {
-            $query = "SELECT  
-                            a.id, a.nombre, a.marca, a.modelo, a.anio, a.precio, a.stock,
-            a.thumbnail, a.imagen_grande, a.descripcion, a.estado,
-            a.categoria_id, a.fecha_creacion, a.fecha_actualizacion,
-            c.nombre AS categoria_nombre
-        FROM autopartes a
-        LEFT JOIN categorias c ON c.id = a.categoria_id
-        WHERE a.id = :id";
-            
-            $stmt = $this->db->prepare($query);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->execute();
-            
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-            
-        } catch (PDOException $e) {
-            throw new Exception("Error al obtener autoparte: " . $e->getMessage());
-        }
+    try {
+        $query = "SELECT 
+                    a.id, a.nombre, a.descripcion, a.marca, a.modelo, a.anio,
+                    a.precio, a.stock, a.categoria_id,
+                    a.thumbnail, a.imagen_grande, a.estado,
+                    a.fecha_creacion, a.fecha_actualizacion,
+                    c.nombre AS categoria_nombre
+                  FROM autopartes a
+                  LEFT JOIN categorias c ON a.categoria_id = c.id
+                  WHERE a.id = :id";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ?: false;
+
+    } catch (PDOException $e) {
+        return false;
     }
+}
+
     
     /**
      * Obtiene todas las autopartes con filtros
