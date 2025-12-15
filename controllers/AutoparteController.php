@@ -69,7 +69,6 @@ class AutoparteController {
             $totalPaginas = ceil($totalAutopartes / $porPagina);
             
             $categorias = $this->obtenerCategorias();
-            $secciones = $this->obtenerSecciones();
             $marcas = $this->autoparteModel->obtenerMarcas();
             $anios = $this->autoparteModel->obtenerAnios();
             
@@ -80,7 +79,7 @@ class AutoparteController {
             
             $pageTitle = 'Inventario de Autopartes - Admin';
             
-            require_once VIEWS_PATH . '/admin/autopartes/index.php';
+            require_once VIEWS_PATH . '/admin/categorias/index.php';
             
         } catch (Exception $e) {
             setFlashMessage(MSG_ERROR, 'Error al cargar inventario: ' . $e->getMessage());
@@ -99,12 +98,11 @@ class AutoparteController {
             }
             
             $categorias = $this->obtenerCategorias();
-            $secciones = $this->obtenerSecciones();
             $marcas = $this->autoparteModel->obtenerMarcas();
             
             $pageTitle = 'Agregar Autoparte - Admin';
             
-            require_once VIEWS_PATH . '/admin/autopartes/crear.php';
+            require_once VIEWS_PATH . '/admin/inventario/crear.php';
             
         } catch (Exception $e) {
             setFlashMessage(MSG_ERROR, 'Error al cargar formulario');
@@ -112,10 +110,6 @@ class AutoparteController {
         }
     }
     
-    /**
-     * Procesa la creación de una autoparte
-     * MODIFICADO: Ahora acepta URLs de imágenes en lugar de subir archivos
-     */
     public function store() {
         try {
             if (!hasPermission('inventario', 'crear')) {
@@ -239,7 +233,6 @@ class AutoparteController {
             }
             
             $categorias = $this->obtenerCategorias();
-            $secciones = $this->obtenerSecciones();
             $marcas = $this->autoparteModel->obtenerMarcas();
             
             $pageTitle = 'Editar Autoparte - Admin';
@@ -539,14 +532,6 @@ class AutoparteController {
      */
     private function obtenerCategorias() {
         $query = "SELECT id, nombre, descripcion FROM categorias WHERE estado = 1 ORDER BY nombre";
-        return $this->db->fetchAll($query);
-    }
-    
-    /**
-     * Obtiene todas las secciones activas
-     */
-    private function obtenerSecciones() {
-        $query = "SELECT id, nombre, descripcion FROM secciones WHERE estado = 1 ORDER BY nombre";
         return $this->db->fetchAll($query);
     }
 }
